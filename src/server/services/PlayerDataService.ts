@@ -1,7 +1,7 @@
 import { OnInit, Service } from "@flamework/core";
 import ProfileService from "@rbxts/profileservice";
 import { Profile } from "@rbxts/profileservice/globals";
-import { HttpService } from "@rbxts/services";
+import { HttpService, RunService } from "@rbxts/services";
 import { Events, Functions } from "server/network";
 import { DEFAULT_PLAYER_DATA } from "shared/constants/PlayerData";
 import { PlayerData, Settings } from "shared/types/PlayerData";
@@ -20,6 +20,8 @@ export class PlayerDataService implements OnInit {
 			(player) => this.createProfile(player),
 			(player) => this.removeProfile(player),
 		);
+
+		forEveryPlayer((player) => this.incrementPlaytime(player));
 
 		Functions.getData.setCallback((player, data) => {
 			const profile = this.profiles.get(player);
@@ -85,5 +87,18 @@ export class PlayerDataService implements OnInit {
 		}
 
 		return false;
+	}
+
+	private incrementPlaytime(player: Player) {
+		const profile = this.profiles.get(player);
+		const interval = 1; //in seconds
+		let counter = 0;
+		RunService.Heartbeat.Connect((deltaTime) => {
+			counter = counter + deltaTime;
+			if (counter >= interval && profile) {
+				counter -= interval;
+				profile.Data.totalPlaytime += interval;
+			}
+		});
 	}
 }
