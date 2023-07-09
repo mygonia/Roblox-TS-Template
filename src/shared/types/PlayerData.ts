@@ -1,11 +1,11 @@
-
 export interface PlayerData {
-	taps: number;
+	cash: number;
 	gems: number;
-	settings: Settings
+	totalPlaytime: number;
+	settings: Settings;
 }
 
 export interface Settings {
-	music: boolean,
-	sound_effects: boolean
+	music: boolean;
+	sound_effects: boolean;
 }

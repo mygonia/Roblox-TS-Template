@@ -19,6 +19,10 @@ Events.updateData.connect((data) => {
 	clientStore.dispatch({ type: "updatePlayerData", data: playerData });
 });
 
-Events.updateTaps.connect((amount) => {
-	clientStore.dispatch({ type: "updateCurrency", currency: "taps", amount });
+Events.updateCash.connect((amount) => {
+	clientStore.dispatch({ type: "updateCurrency", currency: "cash", amount });
+});
+
+Events.updateGems.connect((amount) => {
+	clientStore.dispatch({ type: "updateCurrency", currency: "gems", amount });
 });

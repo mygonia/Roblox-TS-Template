@@ -55,20 +55,32 @@ export class PlayerDataService implements OnInit {
 		const profile = this.profiles.get(player);
 
 		if (profile) {
-			const setTaps = (value: number) => {
-				profile.Data.taps = value;
-				Events.updateTaps(player, value);
+			const setCash = (value: number) => {
+				profile.Data.cash = value;
+				Events.updateCash(player, value);
 			};
 
-			const adjustTaps = (value: number) => {
-				const amount = profile.Data.taps + value;
-				setTaps(amount);
+			const adjustCash = (value: number) => {
+				const amount = profile.Data.cash + value;
+				setCash(amount);
+			};
+
+			const setGems = (value: number) => {
+				profile.Data.gems = value;
+				Events.updateGems(player, value);
+			};
+
+			const adjustGems = (value: number) => {
+				const amount = profile.Data.gems + value;
+				setGems(amount);
 			};
 
 			return {
 				data: profile.Data,
-				setTaps: setTaps,
-				adjustTaps: adjustTaps,
+				setCash: setCash,
+				adjustCash: adjustCash,
+				setGems: setGems,
+				adjustGems: adjustGems,
 			};
 		}
 
